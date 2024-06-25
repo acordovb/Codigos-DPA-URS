@@ -33,4 +33,12 @@ public class ApiService {
         }
         return cachedResponse;
     }
+
+    public void clearCache() {
+        cachedResponse = null;
+    }
+
+    public Map<String, Object> getCachedResponse() {
+        return cachedResponse;
+    }
 }
