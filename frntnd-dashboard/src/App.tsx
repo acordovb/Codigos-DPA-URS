@@ -3,7 +3,9 @@ import './App.css';
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SelectComponent from './components/option';
+import SelectProvinciaComponent from './components/option-provincia';
+import SelectCantonComponent from './components/option-canton';
+import SelectParroquiaComponent from './components/option-parroquia';
 
 function App() {
   return (
@@ -15,19 +17,9 @@ function App() {
           </div>
         </div>
         <div className="container">
-          <SelectComponent />
-          <select className="form-select" aria-label="Default select example">
-            <option selected>Canton</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
-          <select className="form-select" aria-label="Default select example">
-            <option selected>Parroquia</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
+          <SelectProvinciaComponent />
+          <SelectCantonComponent valueToSend="1" />
+          <SelectParroquiaComponent provinciaId="2" cantonId="202" />
         </div>
         <div className='container-results'>
           <div className='results-code'>

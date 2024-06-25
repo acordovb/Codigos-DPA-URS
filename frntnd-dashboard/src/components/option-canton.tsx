@@ -5,14 +5,21 @@ interface IOption {
     label: string;
 }
 
-const SelectComponent: React.FC = () => {
+interface SelectCantonComponentProps {
+    valueToSend: string | undefined;
+}
+
+const SelectCantonComponent: React.FC<SelectCantonComponentProps> = ({ valueToSend }) => {
 
     const [opciones, setOpciones] = useState<IOption[]>([]);
 
     useEffect(() => {
         const fetchOptions = async () => {
             try {
-                const response = await fetch('http://localhost:8080/dpa/provincias');
+                if (!valueToSend) {
+                    return;
+                }
+                const response = await fetch(`http://localhost:8080/dpa/cantones/${valueToSend}`);
                 const data: { name: string; code: string }[] = await response.json();
                 const options: IOption[] = data.map((item) => ({
                     value: item.code,
@@ -25,11 +32,11 @@ const SelectComponent: React.FC = () => {
         };
 
         fetchOptions();
-    }, []);
+    }, [valueToSend]);
 
     return (
         <select>
-            <option selected>Provincia</option>
+            <option selected>Cantón</option>
             {opciones.map((opcion) => (
                 <option key={opcion.value} value={opcion.value}>{opcion.label}</option>
             ))}
@@ -37,4 +44,4 @@ const SelectComponent: React.FC = () => {
     );
 };
 
-export default SelectComponent;
+export default SelectCantonComponent;
