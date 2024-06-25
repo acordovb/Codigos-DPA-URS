@@ -1,46 +1,64 @@
 package com.urs.bcknd_dashboard.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.web.client.RestTemplate;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public class ApiServiceTest {
 
-    private RestTemplate restTemplateMock;
+    @Mock
+    private RestTemplate restTemplate;
+
     private ApiService apiService;
 
-    @BeforeEach
+    @SuppressWarnings("deprecation")
+    @Before
     public void setUp() {
-        restTemplateMock = mock(RestTemplate.class);
-        apiService = new ApiService(restTemplateMock);
+        MockitoAnnotations.initMocks(this);
+        apiService = new ApiService(restTemplate);
     }
 
     @Test
-    public void testFetchProvincesAPI() throws Exception {
-        // Configurar la respuesta simulada del RestTemplate
-        String json = "{\"province\":\"TestProvince\"}";
-        when(restTemplateMock.getForObject(anyString(), eq(String.class))).thenReturn(json);
+    public void testFetchProvincesAPIReturnsData() throws Exception {
+        // Preparar datos de prueba
+        String mockResponse = "{\"key\":\"value\"}";
+        byte[] mockResponseBytes = mockResponse.getBytes(StandardCharsets.UTF_8);
+        when(restTemplate.getForObject(anyString(), eq(byte[].class))).thenReturn(mockResponseBytes);
 
-        // Convertir manualmente la respuesta JSON en un Map para verificar
-        ObjectMapper mapper = new ObjectMapper();
-        @SuppressWarnings("unchecked")
-        Map<String, Object> expectedResponse = mapper.readValue(json, Map.class);
+        // Ejecutar
+        Map<String, Object> result = apiService.fetchProvincesAPI();
 
-        // Primera llamada para verificar la respuesta y el uso del caché
-        Map<String, Object> response = apiService.fetchProvincesAPI();
-        assertEquals(expectedResponse, response, "La respuesta debe coincidir con la esperada");
+        // Verificar
+        assertNotNull(result);
+        assertEquals("value", result.get("key"));
+        verify(restTemplate, times(1)).getForObject(anyString(), eq(byte[].class));
+    }
 
-        // Segunda llamada para verificar que se usa el caché
-        response = apiService.fetchProvincesAPI();
-        assertEquals(expectedResponse, response, "La respuesta debe venir del caché");
+    @Test
+    public void testClearCache() throws Exception {
+        testFetchProvincesAPIReturnsData();
 
-        // Verificar que el RestTemplate se llamó solo una vez
-        verify(restTemplateMock, times(1)).getForObject(anyString(), eq(String.class));
+        apiService.clearCache();
+
+        assertNull(apiService.getCachedResponse());
+    }
+
+    @Test
+    public void testFetchProvincesAPIReturnsCachedData() throws Exception {
+        testFetchProvincesAPIReturnsData();
+
+        Map<String, Object> result = apiService.fetchProvincesAPI();
+
+        assertNotNull(result);
+        assertEquals("value", result.get("key"));
+        verify(restTemplate, times(0)).getForObject(anyString(), eq(byte[].class));
     }
 }
