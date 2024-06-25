@@ -17,16 +17,15 @@ const SelectCantonComponent: React.FC<SelectCantonComponentProps> = ({ provincia
     useEffect(() => {
         const fetchOptions = async () => {
             try {
-                if (!provinciaId) {
-                    return;
+                if (provinciaId) {
+                    const response = await fetch(`http://localhost:8080/dpa/cantones/${provinciaId}`);
+                    const data: { name: string; code: string }[] = await response.json();
+                    const options: IOption[] = data.map((item) => ({
+                        value: item.code,
+                        label: item.name,
+                    }));
+                    setOpciones(options);
                 }
-                const response = await fetch(`http://localhost:8080/dpa/cantones/${provinciaId}`);
-                const data: { name: string; code: string }[] = await response.json();
-                const options: IOption[] = data.map((item) => ({
-                    value: item.code,
-                    label: item.name,
-                }));
-                setOpciones(options);
             } catch (error) {
                 console.error('Error al obtener los datos:', error);
             }

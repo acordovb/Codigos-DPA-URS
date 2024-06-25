@@ -18,16 +18,15 @@ const SelectParroquiaComponent: React.FC<SelectParroquiaComponentProps> = ({ pro
     useEffect(() => {
         const fetchOptions = async () => {
             try {
-                if (!provinciaId || !cantonId) {
-                    return;
+                if (provinciaId && cantonId) {
+                    const response = await fetch(`http://localhost:8080/dpa/parroquias/${provinciaId}/${cantonId}`);
+                    const data: { name: string; code: string }[] = await response.json();
+                    const options: IOption[] = data.map((item) => ({
+                        value: item.code,
+                        label: item.name,
+                    }));
+                    setOpciones(options);
                 }
-                const response = await fetch(`http://localhost:8080/dpa/parroquias/${provinciaId}/${cantonId}`);
-                const data: { name: string; code: string }[] = await response.json();
-                const options: IOption[] = data.map((item) => ({
-                    value: item.code,
-                    label: item.name,
-                }));
-                setOpciones(options);
             } catch (error) {
                 console.error('Error al obtener los datos:', error);
             }
