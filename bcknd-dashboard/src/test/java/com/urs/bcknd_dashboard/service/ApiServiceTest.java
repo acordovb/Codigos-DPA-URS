@@ -1,5 +1,7 @@
 package com.urs.bcknd_dashboard.service;
 
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
@@ -43,12 +45,12 @@ public class ApiServiceTest {
     }
 
     @Test
-    public void testClearCache() throws Exception {
+    public void testClearDPA() throws Exception {
         testFetchProvincesAPIReturnsData();
 
-        apiService.clearCache();
+        apiService.clearDPA();
 
-        assertNull(apiService.getCachedResponse());
+        assertNull(apiService.getDPAResponse());
     }
 
     @Test

@@ -34,11 +34,11 @@ public class ApiService {
         return cachedResponse;
     }
 
-    public void clearCache() {
+    public void clearDPA() {
         cachedResponse = null;
     }
 
-    public Map<String, Object> getCachedResponse() {
+    public Map<String, Object> getDPAResponse() {
         return cachedResponse;
     }
 }
