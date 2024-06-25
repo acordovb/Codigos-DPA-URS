@@ -5,7 +5,11 @@ interface IOption {
     label: string;
 }
 
-const SelectProvinciaComponent: React.FC = () => {
+interface SelectProvinciaComponentProps {
+    onProvinciaChange?: (value: string) => void;
+}
+
+const SelectProvinciaComponent: React.FC<SelectProvinciaComponentProps> = ({ onProvinciaChange }) => {
 
     const [opciones, setOpciones] = useState<IOption[]>([]);
 
@@ -28,8 +32,8 @@ const SelectProvinciaComponent: React.FC = () => {
     }, []);
 
     return (
-        <select>
-            <option selected>Provincia</option>
+        <select onChange={(e) => onProvinciaChange?.(e.target.value)}>
+            <option defaultValue="">Provincia</option>
             {opciones.map((opcion) => (
                 <option key={opcion.value} value={opcion.value}>{opcion.label}</option>
             ))}

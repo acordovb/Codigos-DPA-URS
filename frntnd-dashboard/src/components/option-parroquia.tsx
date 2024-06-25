@@ -8,9 +8,10 @@ interface IOption {
 interface SelectParroquiaComponentProps {
     provinciaId: string | undefined;
     cantonId: string | undefined;
+    onParroquiaChange?: (value: string) => void;
 }
 
-const SelectParroquiaComponent: React.FC<SelectParroquiaComponentProps> = ({ provinciaId, cantonId }) => {
+const SelectParroquiaComponent: React.FC<SelectParroquiaComponentProps> = ({ provinciaId, cantonId, onParroquiaChange }) => {
 
     const [opciones, setOpciones] = useState<IOption[]>([]);
 
@@ -36,8 +37,8 @@ const SelectParroquiaComponent: React.FC<SelectParroquiaComponentProps> = ({ pro
     }, [provinciaId, cantonId]);
 
     return (
-        <select>
-            <option selected>Cantón</option>
+        <select onChange={(e) => onParroquiaChange?.(e.target.value)}>
+            <option defaultValue="">Parroquia</option>
             {opciones.map((opcion) => (
                 <option key={opcion.value} value={opcion.value}>{opcion.label}</option>
             ))}
