@@ -68,6 +68,9 @@ function App() {
           )}
         </div>
       </header>
+      <div className="alert alert-info mb-0" role="alert">
+        ℹ️ Los codigos presentados se van acumulando, por lo que el codigo de parroquia es la union de los codigos de provincia, cantón y parroquia.
+      </div>
     </div>
   );
 }
