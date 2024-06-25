@@ -8,7 +8,8 @@ Para ejecutar este proyecto utilizando Docker, asegúrate de tener Docker y Dock
 
 1. Clona el repositorio del proyecto.
 2. Navega hasta la raíz del proyecto en tu terminal.
-3. Ejecuta el comando `docker-compose up`.
+3. Genera el archivo JAR del backend ejecutando el comando `mvn clean package` o utilizando el gestor de paquetes correspondiente.
+4. Ejecuta el comando `docker-compose up`.
 
 Esto construirá y levantará los contenedores necesarios para el backend y el frontend. Una vez completado, podrás acceder a la aplicación a través de tu navegador.
 
