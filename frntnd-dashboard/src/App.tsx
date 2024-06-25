@@ -42,24 +42,30 @@ function App() {
           <SelectParroquiaComponent provinciaId={selectedProvincia} cantonId={selectedCanton} onParroquiaChange={handleParroquiaChange} />
         </div>
         <div className='container-results'>
-          <div className='results-code'>
-            <span className="badge text-bg-danger">Codigo de Provincia</span>
-            <div className="alert alert-danger" role="alert">
-              2345
+          {selectedProvincia && (
+            <div className='results-code'>
+              <span className="badge text-bg-danger">Codigo de Provincia</span>
+              <div className="alert alert-danger" role="alert">
+                {selectedProvincia}
+              </div>
             </div>
-          </div>
-          <div className='results-code'>
-            <span className="badge text-bg-danger">Codigo de Cantón</span>
-            <div className="alert alert-danger" role="alert">
-              2345
+          )}
+          {selectedCanton && (
+            <div className='results-code'>
+              <span className="badge text-bg-danger">Codigo de Cantón</span>
+              <div className="alert alert-danger" role="alert">
+                {selectedCanton}
+              </div>
             </div>
-          </div>
-          <div className='results-code'>
-            <span className="badge text-bg-danger">Codigo de Parroquia</span>
-            <div className="alert alert-danger" role="alert">
-              23546
+          )}
+          {selectedParroquia && (
+            <div className='results-code'>
+              <span className="badge text-bg-danger">Codigo de Parroquia</span>
+              <div className="alert alert-danger" role="alert">
+                {selectedParroquia}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </header>
     </div>
