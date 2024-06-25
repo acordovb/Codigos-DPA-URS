@@ -8,6 +8,26 @@ import SelectCantonComponent from './components/option-canton';
 import SelectParroquiaComponent from './components/option-parroquia';
 
 function App() {
+
+  const [selectedProvincia, setSelectedProvincia] = React.useState('');
+  const [selectedCanton, setSelectedCanton] = React.useState('');
+  const [selectedParroquia, setSelectedParroquia] = React.useState('');
+
+  const handleProvinciaChange = (value: string) => {
+    setSelectedProvincia(value);
+    setSelectedCanton('');
+    setSelectedParroquia('');
+  };
+
+  const handleCantonChange = (value: string) => {
+    setSelectedCanton(value);
+    setSelectedParroquia('');
+  };
+
+  const handleParroquiaChange = (value: string) => {
+    setSelectedParroquia(value);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,9 +37,9 @@ function App() {
           </div>
         </div>
         <div className="container">
-          <SelectProvinciaComponent />
-          <SelectCantonComponent valueToSend="1" />
-          <SelectParroquiaComponent provinciaId="2" cantonId="202" />
+          <SelectProvinciaComponent onProvinciaChange={handleProvinciaChange} />
+          <SelectCantonComponent provinciaId={selectedProvincia} onCantonChange={handleCantonChange} />
+          <SelectParroquiaComponent provinciaId={selectedProvincia} cantonId={selectedCanton} onParroquiaChange={handleParroquiaChange} />
         </div>
         <div className='container-results'>
           <div className='results-code'>
