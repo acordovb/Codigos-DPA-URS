@@ -68,6 +68,12 @@ function App() {
           )}
         </div>
       </header>
+      <div className="signature">
+        <a href="https://github.com/acordovb">
+          <img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub Profile" />
+          @acordovb
+        </a>
+      </div>
       <div className="alert alert-info mb-0" role="alert">
         ℹ️ Los codigos presentados se van acumulando, por lo que el codigo de parroquia es la union de los codigos de provincia, cantón y parroquia.
       </div>

@@ -11,7 +11,7 @@
 .App-header {
   background-color: #282c34;
   padding-top: 10px;
-  min-height: 93.5vh;
+  min-height: 88vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,4 +70,19 @@
   color: #0c5460 !important;
   border-color: #bee5eb;
   font-size: 20px !important;
+}
+
+.signature a {
+  color: white;
+}
+
+.signature a:hover {
+  color: #61dafb;
+}
+
+.signature img {
+  width: 30px;
+  height: 30px;
+  margin: 10px;
+
 }
